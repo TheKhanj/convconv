@@ -1,4 +1,4 @@
-import { ConvConv, Types } from "./convconv";
+import convconv, { Types } from "./convconv";
 
 function cartesian(...a: any[][]): any[] {
   if (a.length === 1) {
@@ -25,7 +25,7 @@ describe("/utils/naming-convention", () => {
       const from = tests[fromType];
       const to = tests[toType];
 
-      expect(ConvConv.from(fromType, from).to(toType).toString()).toBe(to);
+      expect(convconv.from(fromType, from).to(toType).toString()).toBe(to);
     },
   );
 });
