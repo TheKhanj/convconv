@@ -62,23 +62,40 @@ export function fromType(type: Types, name: string): ConvConv {
   return exports[functionName](name);
 }
 
+export class ConvConvError extends Error {
+  public constructor(type: Types, name: string) {
+    super(`${name} is not ${type} case`);
+  }
+}
+
+function assertType(type: Types, name: string) {
+  if (!isType(type, name)) {
+    throw new ConvConvError(type, name);
+  }
+}
+
 export function fromKebab(name: string): ConvConv {
+  assertType("kebab", name);
   return new ConvConv(name, Kebab);
 }
 
 export function fromCamel(name: string): ConvConv {
+  assertType("camel", name);
   return new ConvConv(name, Camel);
 }
 
 export function fromSnake(name: string): ConvConv {
+  assertType("snake", name);
   return new ConvConv(name, Snake);
 }
 
 export function fromPascal(name: string): ConvConv {
+  assertType("pascal", name);
   return new ConvConv(name, Pascal);
 }
 
 export function fromScreamingKebab(name: string): ConvConv {
+  assertType("screamingKebab", name);
   return new ConvConv(name, ScreamingKebab);
 }
 
@@ -89,7 +106,7 @@ export const isPascal = Pascal.isPascal;
 export const isScreamingKebab = ScreamingKebab.isScreamingKebab;
 
 export function isType(type: Types, name: string): boolean {
-  const functionName = "from" + type[0].toUpperCase() + type.slice(1);
+  const functionName = "is" + type[0].toUpperCase() + type.slice(1);
 
   return exports[functionName](name);
 }
@@ -107,4 +124,5 @@ export default {
   fromPascal,
   isScreamingKebab,
   fromScreamingKebab,
+  ConvConvError,
 };
