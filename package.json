@@ -2,7 +2,7 @@
   "name": "convconv",
   "version": "0.0.1",
   "description": "Naming Conventions Converter",
-  "main": "index.ts",
+  "main": "dist/index.js",
   "scripts": {
     "test": "jest",
     "test:watch": "jest --watch",
