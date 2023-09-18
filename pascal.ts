@@ -1,4 +1,13 @@
+import { isAlphaNum, isLowerAlpha, isNum } from "./utils";
+
 export namespace Pascal {
+  export function isPascal(name: string): boolean {
+    if (name.length === 0) return true;
+    if (isLowerAlpha(name[0]) || isNum(name[0])) return false;
+
+    return isAlphaNum(name);
+  }
+
   export function toKebab(name: string): string {
     return name
       .split("")

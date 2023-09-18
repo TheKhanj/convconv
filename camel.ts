@@ -1,8 +1,17 @@
+import { isAlphaNum, isNum, isUpperAlpha } from "./utils";
+
 export namespace Camel {
+  export function isCamel(name: string): boolean {
+    if (name.length === 0) return true;
+    if (isUpperAlpha(name[0]) || isNum(name[0])) return false;
+
+    return isAlphaNum(name);
+  }
+
   export function toKebab(name: string): string {
     return name
       .split("")
-      .reduce((arr, char, index) => {
+      .reduce((arr, char) => {
         if (char === char.toUpperCase()) {
           arr.push("-", char.toLowerCase());
         } else {

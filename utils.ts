@@ -4,16 +4,6 @@ function _is(input: string, func: (input: string) => boolean): boolean {
   return input.split("").every(func);
 }
 
-export function isUpperAlpha(input: string) {
-  return _is(input, (input) => {
-    const charCode = input.charCodeAt(0);
-    const ACharCode = "A".charCodeAt(0);
-    const ZCharCode = "Z".charCodeAt(0);
-
-    return ACharCode <= charCode && charCode <= ZCharCode;
-  });
-}
-
 export function isLowerAlpha(input: string) {
   return _is(input, (input) => {
     const charCode = input.charCodeAt(0);
@@ -21,6 +11,16 @@ export function isLowerAlpha(input: string) {
     const zCharCode = "z".charCodeAt(0);
 
     return aCharCode <= charCode && charCode <= zCharCode;
+  });
+}
+
+export function isUpperAlpha(input: string) {
+  return _is(input, (input) => {
+    const charCode = input.charCodeAt(0);
+    const ACharCode = "A".charCodeAt(0);
+    const ZCharCode = "Z".charCodeAt(0);
+
+    return ACharCode <= charCode && charCode <= ZCharCode;
   });
 }
 
@@ -40,4 +40,12 @@ export function isNum(input: string): boolean {
 
 export function isAlphaNum(input: string): boolean {
   return _is(input, (input) => isAlpha(input) || isNum(input));
+}
+
+export function isLowerAlphaNum(input: string): boolean {
+  return _is(input, (input) => isLowerAlpha(input) || isNum(input));
+}
+
+export function isUpperAlphaNum(input: string): boolean {
+  return _is(input, (input) => isUpperAlpha(input) || isNum(input));
 }
