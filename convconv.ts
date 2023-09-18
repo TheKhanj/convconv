@@ -56,7 +56,7 @@ for (const key of Object.keys(Adapters) as (keyof typeof Adapters)[]) {
   };
 }
 
-export function from(type: Types, name: string): ConvConv {
+export function fromType(type: Types, name: string): ConvConv {
   const functionName = "from" + type[0].toUpperCase() + type.slice(1);
 
   return exports[functionName](name);
@@ -82,11 +82,29 @@ export function fromScreamingKebab(name: string): ConvConv {
   return new ConvConv(name, ScreamingKebab);
 }
 
+export const isKebab = Kebab.isKebab;
+export const isCamel = Camel.isCamel;
+export const isSnake = Snake.isSnake;
+export const isPascal = Pascal.isPascal;
+export const isScreamingKebab = ScreamingKebab.isScreamingKebab;
+
+export function isType(type: Types, name: string): boolean {
+  const functionName = "from" + type[0].toUpperCase() + type.slice(1);
+
+  return exports[functionName](name);
+}
+
 export default {
-  from,
+  isType,
+  fromType,
+  isKebab,
   fromKebab,
+  isCamel,
   fromCamel,
+  isSnake,
   fromSnake,
+  isPascal,
   fromPascal,
+  isScreamingKebab,
   fromScreamingKebab,
 };

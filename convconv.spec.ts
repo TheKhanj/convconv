@@ -25,7 +25,7 @@ describe("/utils/naming-convention", () => {
       const from = tests[fromType];
       const to = tests[toType];
 
-      expect(convconv.from(fromType, from).to(toType).toString()).toBe(to);
+      expect(convconv.fromType(fromType, from).to(toType).toString()).toBe(to);
     },
   );
 });
