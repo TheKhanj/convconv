@@ -18,6 +18,9 @@
   "bugs": {
     "url": "https://github.com/thekhanj/convconv/issues"
   },
+  "files": [
+    "dist"
+  ],
   "homepage": "https://github.com/thekhanj/convconv#readme",
   "devDependencies": {
     "@types/jest": "^29.5.5",
