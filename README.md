@@ -12,7 +12,7 @@ import convconv from 'convconv';
 //   snake_case
 //   SCREAMING_KEBAB_CASE
 
-// converts camelCase to 
+// converts camelCase to kebab-case
 // camelCase -> camel-case
 convconv.fromCamel('camelCase').toKebab().toString();
 
