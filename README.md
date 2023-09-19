@@ -29,13 +29,16 @@ convconv
 convconv.autoFrom('Random_sTring-with_nOConvention');
 
 // returns 'kebab'
-convconv.getType('some-kebab-case-string');
+convconv.getConvention('some-kebab-case-string');
 
 // throws ConventionViolationError
-convconv.getType('Random_sTring-with_nOConvention');
+convconv.getConvention('Random_sTring-with_nOConvention');
 
 // returns true
 convconv.isPascal('PascalCase');
+
+// returns true
+convconv.isConvention('pascal', 'PascalCase');
 
 // throws ConventionViolationError
 convconv.fromKebab('NotKebab');

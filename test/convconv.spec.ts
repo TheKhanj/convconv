@@ -1,4 +1,4 @@
-import convconv, { Types } from "../convconv";
+import convconv, { Convention } from "../convconv";
 
 function cartesian(...a: any[][]): any[] {
   if (a.length === 1) {
@@ -31,11 +31,15 @@ describe("convconv", () => {
   tests.forEach((tests) =>
     test.each(cartesian(types, types))(
       "converting %s to %s",
-      (fromType: Types, toType: Types) => {
-        const from = tests[fromType];
-        const to = tests[toType];
+      (fromConvention: Convention, toConvention: Convention) => {
+        const from = tests[fromConvention];
+        const to = tests[toConvention];
 
-        expect(convconv.fromType(fromType, from).toType(toType)).toBe(to);
+        expect(
+          convconv
+            .fromConvention(fromConvention, from)
+            .toConvention(toConvention)
+        ).toBe(to);
       }
     )
   );
@@ -43,11 +47,11 @@ describe("convconv", () => {
   tests.forEach((tests) =>
     test.each(cartesian(types, types))(
       "autoFrom should convert %s to %s",
-      (fromType: Types, toType: Types) => {
-        const from = tests[fromType];
-        const to = tests[toType];
+      (fromConvention: Convention, toConvention: Convention) => {
+        const from = tests[fromConvention];
+        const to = tests[toConvention];
 
-        expect(convconv.autoFrom(from).toType(toType)).toBe(to);
+        expect(convconv.autoFrom(from).toConvention(toConvention)).toBe(to);
       }
     )
   );
@@ -58,9 +62,9 @@ describe("convconv", () => {
     "camelCaseButThenAnAtSign@",
     "Random_sTring-with_nOConvention",
   ])(
-    "getType should throw ConventionNotFoundError for invalid inputs",
+    "getConvention should throw ConventionNotFoundError for invalid inputs",
     (from: string) => {
-      expect(() => convconv.getType(from)).toThrow(
+      expect(() => convconv.getConvention(from)).toThrow(
         convconv.ConventionNotFoundError
       );
     }

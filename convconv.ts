@@ -5,7 +5,7 @@ import { Pascal } from "./pascal";
 import { Adapter } from "./adapter";
 import { ScreamingKebab } from "./screaming-kebab";
 
-export const TYPES = [
+export const CONVENTIONS = [
   "kebab",
   "camel",
   "pascal",
@@ -13,10 +13,10 @@ export const TYPES = [
   "screaming-kebab",
 ] as const;
 
-export type Types = (typeof TYPES)[number];
+export type Convention = (typeof CONVENTIONS)[number];
 
 export interface ConvConv {
-  toType(type: Types): string;
+  toConvention(convention: Convention): string;
 
   toKebab(): string;
   toCamel(): string;
@@ -41,8 +41,11 @@ const Adapters = {
   screamingKebab: ScreamingKebab,
 };
 
-ConvConv.prototype.toType = function (this: This, type: Types): ConvConv {
-  const functionName = "to" + Pascal.fromKebab(type);
+ConvConv.prototype.toConvention = function (
+  this: This,
+  convention: Convention
+): ConvConv {
+  const functionName = "to" + Pascal.fromKebab(convention);
 
   return this[functionName]();
 };
@@ -56,8 +59,8 @@ for (const key of Object.keys(Adapters) as (keyof typeof Adapters)[]) {
   };
 }
 
-export function fromType(type: Types, name: string): ConvConv {
-  const functionName = "from" + Pascal.fromKebab(type);
+export function fromConvention(convention: Convention, name: string): ConvConv {
+  const functionName = "from" + Pascal.fromKebab(convention);
 
   return exports[functionName](name);
 }
@@ -65,67 +68,67 @@ export function fromType(type: Types, name: string): ConvConv {
 export abstract class ConvConvError extends Error {}
 
 export class ConventionViolationError extends ConvConvError {
-  public constructor(type: Types, name: string) {
-    super(`"${name}" is not ${type.split("-").join(" ")} case`);
+  public constructor(convention: Convention, name: string) {
+    super(`"${name}" is not ${convention.split("-").join(" ")} case`);
   }
 }
 
 export class ConventionNotFoundError extends ConvConvError {
   public constructor() {
-    super(`convention doesn't confowm with neither ${TYPES.join(", ")}`);
+    super(`convention doesn't confowm with neither ${CONVENTIONS.join(", ")}`);
   }
 }
 
-function assertType(type: Types, name: string) {
-  if (!isType(type, name)) {
-    throw new ConventionViolationError(type, name);
+function assertConvention(convention: Convention, name: string) {
+  if (!isConvention(convention, name)) {
+    throw new ConventionViolationError(convention, name);
   }
 }
 
-export function getType(name: string): Types {
-  const type = TYPES.reduce((prev, type) => {
+export function getConvention(name: string): Convention {
+  const convention = CONVENTIONS.reduce((prev, convention) => {
     if (prev !== null) {
       return prev;
     }
-    if (isType(type, name)) {
-      return type;
+    if (isConvention(convention, name)) {
+      return convention;
     }
     return null;
-  }, null as null | Types);
+  }, null as null | Convention);
 
-  if (type === null) {
+  if (convention === null) {
     throw new ConventionNotFoundError();
   }
 
-  return type;
+  return convention;
 }
 
 export function autoFrom(name: string): ConvConv {
-  return fromType(getType(name), name);
+  return fromConvention(getConvention(name), name);
 }
 
 export function fromKebab(name: string): ConvConv {
-  assertType("kebab", name);
+  assertConvention("kebab", name);
   return new ConvConv(name, Kebab);
 }
 
 export function fromCamel(name: string): ConvConv {
-  assertType("camel", name);
+  assertConvention("camel", name);
   return new ConvConv(name, Camel);
 }
 
 export function fromSnake(name: string): ConvConv {
-  assertType("snake", name);
+  assertConvention("snake", name);
   return new ConvConv(name, Snake);
 }
 
 export function fromPascal(name: string): ConvConv {
-  assertType("pascal", name);
+  assertConvention("pascal", name);
   return new ConvConv(name, Pascal);
 }
 
 export function fromScreamingKebab(name: string): ConvConv {
-  assertType("screaming-kebab", name);
+  assertConvention("screaming-kebab", name);
   return new ConvConv(name, ScreamingKebab);
 }
 
@@ -135,17 +138,17 @@ export const isSnake = Snake.isSnake;
 export const isPascal = Pascal.isPascal;
 export const isScreamingKebab = ScreamingKebab.isScreamingKebab;
 
-export function isType(type: Types, name: string): boolean {
-  const functionName = "is" + Pascal.fromKebab(type);
+export function isConvention(convention: Convention, name: string): boolean {
+  const functionName = "is" + Pascal.fromKebab(convention);
 
   return exports[functionName](name);
 }
 
 export default {
   autoFrom,
-  getType,
-  isType,
-  fromType,
+  getConvention,
+  isConvention,
+  fromConvention,
   isKebab,
   fromKebab,
   isCamel,
