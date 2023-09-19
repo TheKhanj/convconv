@@ -18,6 +18,10 @@
   "bugs": {
     "url": "https://github.com/thekhanj/convconv/issues"
   },
+  "keywords": [
+    "naming-convention",
+    "naming-conventions"
+  ],
   "files": [
     "dist/*.d.ts",
     "dist/*.js"
