@@ -20,6 +20,20 @@ convconv.fromCamel('camelCase').toKebab();
 // kebab-case -> kebak_case
 convconv.fromType('kebab', 'kebab-case').toSnake();
 
+// converts any case to PascalCase
+convconv
+  .autoFrom('your-input-in-one-of-available-naming-conventions')
+  .toPascal();
+
+// throws ConventionViolationError
+convconv.autoFrom('Random_sTring-with_nOConvention');
+
+// returns 'kebab'
+convconv.getType('some-kebab-case-string');
+
+// throws ConventionViolationError
+convconv.getType('Random_sTring-with_nOConvention');
+
 // returns true
 convconv.isPascal('PascalCase');
 
@@ -29,5 +43,6 @@ convconv.fromKebab('NotKebab');
 // throws ConventionViolationError
 convconv.fromCamel('123startingWithNumber')
 ```
+
 # Errors
 All errors extend from `ConvConvError`.
