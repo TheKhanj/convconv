@@ -9,7 +9,7 @@ function cartesian(...a: any[][]): any[] {
 }
 
 describe("convconv", () => {
-  const tests: { [key: string]: string }[] = [
+  const allTests: { [key: string]: string }[] = [
     {
       kebab: "my-random-sentence-123",
       snake: "my_random_sentence_123",
@@ -26,10 +26,10 @@ describe("convconv", () => {
     },
   ];
 
-  const types = Object.keys(tests[0]);
+  const conventions = Object.keys(allTests[0]);
 
-  tests.forEach((tests) =>
-    test.each(cartesian(types, types))(
+  allTests.forEach((tests) =>
+    test.each(cartesian(conventions, conventions))(
       "converting %s to %s",
       (fromConvention: Convention, toConvention: Convention) => {
         const from = tests[fromConvention];
@@ -44,8 +44,8 @@ describe("convconv", () => {
     )
   );
 
-  tests.forEach((tests) =>
-    test.each(cartesian(types, types))(
+  allTests.forEach((tests) =>
+    test.each(cartesian(conventions, conventions))(
       "autoFrom should convert %s to %s",
       (fromConvention: Convention, toConvention: Convention) => {
         const from = tests[fromConvention];

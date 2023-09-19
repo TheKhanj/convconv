@@ -18,7 +18,7 @@ convconv.fromCamel('camelCase').toKebab();
 
 // converts kebab-case to snake_case
 // kebab-case -> kebak_case
-convconv.fromType('kebab', 'kebab-case').toSnake();
+convconv.fromConvention('kebab', 'kebab-case').toSnake();
 
 // converts any case to PascalCase
 convconv
