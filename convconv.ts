@@ -75,7 +75,7 @@ export abstract class ConvConvError extends Error {}
 
 export class ConventionViolationError extends ConvConvError {
   public constructor(type: Types, name: string) {
-    super(`"${name}" is not ${type.split('-').join(' ')} case`);
+    super(`"${name}" is not ${type.split("-").join(" ")} case`);
   }
 }
 
