@@ -5,9 +5,14 @@
   "main": "dist/convconv.js",
   "types": "dist/convconv.d.ts",
   "scripts": {
+    "clean": "rm -rf dist",
     "test": "jest",
+    "test:clean": "npm run clean && npm run test",
     "test:watch": "jest --watch",
-    "test:cov": "jest --coverage"
+    "test:cov": "jest --coverage",
+    "build": "tsc",
+    "build:clean": "npm run clean && npm run build",
+    "prepublishOnly": "npm run test:clean && npm run build:clean"
   },
   "repository": {
     "type": "git",
