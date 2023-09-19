@@ -71,15 +71,17 @@ export function fromType(type: Types, name: string): ConvConv {
   return exports[functionName](name);
 }
 
-export class ConvConvError extends Error {
+export abstract class ConvConvError extends Error {}
+
+export class ConventionViolationError extends ConvConvError {
   public constructor(type: Types, name: string) {
-    super(`${name} is not ${type} case`);
+    super(`"${name}" is not ${type.split('-').join(' ')} case`);
   }
 }
 
 function assertType(type: Types, name: string) {
   if (!isType(type, name)) {
-    throw new ConvConvError(type, name);
+    throw new ConventionViolationError(type, name);
   }
 }
 
@@ -133,5 +135,5 @@ export default {
   fromPascal,
   isScreamingKebab,
   fromScreamingKebab,
-  ConvConvError,
+  ConventionViolationError: ConvConvError,
 };
