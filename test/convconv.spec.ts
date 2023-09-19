@@ -38,4 +38,13 @@ describe("convconv", () => {
       expect(convconv.autoFrom(from).toType(toType)).toBe(to);
     }
   );
+
+  test.each(["123NumberPrefix", "snake_then-kebab", "camelCaseButThenSign@"])(
+    "autoFrom should throw ConventionNotFoundError for invalid inputs",
+    (from: string) => {
+      expect(() => convconv.autoFrom(from)).toThrow(
+        convconv.ConventionNotFoundError
+      );
+    }
+  );
 });
