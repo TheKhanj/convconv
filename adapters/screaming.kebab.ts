@@ -1,4 +1,4 @@
-import { isNum, isUpperAlphaNum } from "./utils";
+import { isNum, isUpperAlphaNum } from "../utils";
 
 export namespace ScreamingKebab {
   export function isScreamingKebab(name: string): boolean {

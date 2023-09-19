@@ -1,4 +1,4 @@
-import { isLowerAlphaNum, isNum } from "./utils";
+import { isLowerAlphaNum, isNum } from "../utils";
 
 export namespace Snake {
   export function isSnake(name: string): boolean {

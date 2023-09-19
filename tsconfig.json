@@ -4,6 +4,7 @@
     "target": "es6",
     "sourceMap": false,
     "declaration": true,
+    "baseUrl": ".",
     "outDir": "dist",
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,

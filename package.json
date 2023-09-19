@@ -2,8 +2,8 @@
   "name": "convconv",
   "version": "0.2.0",
   "description": "Naming Conventions Converter",
-  "main": "dist/convconv.js",
-  "types": "dist/convconv.d.ts",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
   "scripts": {
     "clean": "rm -rf dist",
     "test": "jest",
@@ -29,7 +29,9 @@
   ],
   "files": [
     "dist/*.d.ts",
-    "dist/*.js"
+    "dist/*.js",
+    "dist/adapters/*.d.ts",
+    "dist/adapters/*.js"
   ],
   "homepage": "https://github.com/thekhanj/convconv#readme",
   "devDependencies": {
@@ -43,7 +45,7 @@
       "json",
       "ts"
     ],
-    "rootDir": "./test",
+    "rootDir": ".",
     "testRegex": ".*\\.spec\\.ts$",
     "transform": {
       "^.+\\.(t|j)s$": "ts-jest"

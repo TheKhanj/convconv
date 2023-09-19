@@ -1,9 +1,9 @@
-import { isAlphaNum, isNum, isUpperAlpha } from "./utils";
+import { isAlphaNum, isLowerAlpha, isNum, isUpperAlpha } from "../utils";
 
-export namespace Camel {
-  export function isCamel(name: string): boolean {
+export namespace Pascal {
+  export function isPascal(name: string): boolean {
     if (name.length === 0) return true;
-    if (isUpperAlpha(name[0]) || isNum(name[0])) return false;
+    if (isLowerAlpha(name[0]) || isNum(name[0])) return false;
 
     return isAlphaNum(name);
   }
@@ -13,7 +13,10 @@ export namespace Camel {
       .split("")
       .reduce((arr, char, index) => {
         if (isUpperAlpha(char)) {
-          arr.push("-", char.toLowerCase());
+          if (index !== 0) {
+            arr.push("-");
+          }
+          arr.push(char.toLowerCase());
         } else {
           if (isNum(char) && !isNum(name[index - 1])) {
             arr.push("-");
@@ -29,8 +32,8 @@ export namespace Camel {
   export function fromKebab(name: string): string {
     return name
       .split("-")
-      .map((piece, index) => {
-        if (piece.length === 0 || index === 0) {
+      .map((piece) => {
+        if (piece.length === 0) {
           return piece;
         }
 

@@ -1,4 +1,4 @@
-import { isLowerAlphaNum, isNum } from "./utils";
+import { isLowerAlphaNum, isNum } from "../utils";
 
 export namespace Kebab {
   export function isKebab(name: string): boolean {

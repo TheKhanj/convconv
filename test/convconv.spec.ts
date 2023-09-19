@@ -1,4 +1,4 @@
-import convconv, { Convention } from "../convconv";
+import convconv, { Convention } from "../index";
 
 function cartesian(...a: any[][]): any[] {
   if (a.length === 1) {
