@@ -1,6 +1,6 @@
 {
   "name": "convconv",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "Naming Conventions Converter",
   "main": "dist/convconv.js",
   "types": "dist/convconv.d.ts",
