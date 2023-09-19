@@ -82,7 +82,7 @@ function assertType(type: Types, name: string) {
   }
 }
 
-export function autoFrom(name: string): ConvConv {
+export function getType(name: string): Types {
   const type = TYPES.reduce((prev, type) => {
     if (prev !== null) {
       return prev;
@@ -97,7 +97,11 @@ export function autoFrom(name: string): ConvConv {
     throw new ConventionNotFoundError();
   }
 
-  return fromType(type, name);
+  return type;
+}
+
+export function autoFrom(name: string): ConvConv {
+  return fromType(getType(name), name);
 }
 
 export function fromKebab(name: string): ConvConv {
@@ -139,6 +143,7 @@ export function isType(type: Types, name: string): boolean {
 
 export default {
   autoFrom,
+  getType,
   isType,
   fromType,
   isKebab,
