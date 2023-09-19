@@ -70,10 +70,34 @@ export class ConventionViolationError extends ConvConvError {
   }
 }
 
+export class ConventionNotFoundError extends ConvConvError {
+  public constructor() {
+    super(`convention doesn't confowm with neither ${TYPES.join(", ")}`);
+  }
+}
+
 function assertType(type: Types, name: string) {
   if (!isType(type, name)) {
     throw new ConventionViolationError(type, name);
   }
+}
+
+export function autoFrom(name: string): ConvConv {
+  const type = TYPES.reduce((prev, type) => {
+    if (prev !== null) {
+      return prev;
+    }
+    if (isType(type, name)) {
+      return type;
+    }
+    return null;
+  }, null as null | Types);
+
+  if (type === null) {
+    throw new ConventionNotFoundError();
+  }
+
+  return fromType(type, name);
 }
 
 export function fromKebab(name: string): ConvConv {
@@ -114,6 +138,7 @@ export function isType(type: Types, name: string): boolean {
 }
 
 export default {
+  autoFrom,
   isType,
   fromType,
   isKebab,
@@ -126,5 +151,7 @@ export default {
   fromPascal,
   isScreamingKebab,
   fromScreamingKebab,
-  ConventionViolationError: ConvConvError,
+  ConvConvError,
+  ConventionNotFoundError,
+  ConventionViolationError,
 };
