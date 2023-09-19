@@ -1,4 +1,4 @@
-import { isAlphaNum, isLowerAlpha, isNum } from "./utils";
+import { isAlphaNum, isLowerAlpha, isNum, isUpperAlpha } from "./utils";
 
 export namespace Pascal {
   export function isPascal(name: string): boolean {
@@ -12,12 +12,15 @@ export namespace Pascal {
     return name
       .split("")
       .reduce((arr, char, index) => {
-        if (char === char.toUpperCase()) {
+        if (isUpperAlpha(char)) {
           if (index !== 0) {
             arr.push("-");
           }
           arr.push(char.toLowerCase());
         } else {
+          if (isNum(char) && !isNum(name[index - 1])) {
+            arr.push("-");
+          }
           arr.push(char);
         }
 

@@ -11,10 +11,13 @@ export namespace Camel {
   export function toKebab(name: string): string {
     return name
       .split("")
-      .reduce((arr, char) => {
-        if (char === char.toUpperCase()) {
+      .reduce((arr, char, index) => {
+        if (isUpperAlpha(char)) {
           arr.push("-", char.toLowerCase());
         } else {
+          if (isNum(char) && !isNum(name[index - 1])) {
+            arr.push("-");
+          }
           arr.push(char);
         }
 

@@ -10,11 +10,11 @@ function cartesian(...a: any[][]): any[] {
 
 describe("convconv", () => {
   const tests: { [key: string]: string } = {
-    kebab: "my-random-sentence",
-    snake: "my_random_sentence",
-    camel: "myRandomSentence",
-    pascal: "MyRandomSentence",
-    screamingKebab: "MY_RANDOM_SENTENCE",
+    kebab: "my-random-sentence-123",
+    snake: "my_random_sentence_123",
+    camel: "myRandomSentence123",
+    pascal: "MyRandomSentence123",
+    screamingKebab: "MY_RANDOM_SENTENCE_123",
   };
 
   const types = Object.keys(tests);
