@@ -19,7 +19,8 @@
     "url": "https://github.com/thekhanj/convconv/issues"
   },
   "files": [
-    "dist"
+    "dist/*.d.ts",
+    "dist/*.js"
   ],
   "homepage": "https://github.com/thekhanj/convconv#readme",
   "devDependencies": {
@@ -33,7 +34,7 @@
       "json",
       "ts"
     ],
-    "rootDir": ".",
+    "rootDir": "./test",
     "testRegex": ".*\\.spec\\.ts$",
     "transform": {
       "^.+\\.(t|j)s$": "ts-jest"

@@ -1,4 +1,4 @@
-import convconv, { Types } from "./convconv";
+import convconv, { Types } from "../convconv";
 
 function cartesian(...a: any[][]): any[] {
   if (a.length === 1) {

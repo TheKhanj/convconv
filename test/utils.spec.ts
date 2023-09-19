@@ -4,7 +4,7 @@ import {
   isAlpha,
   isNum,
   isAlphaNum,
-} from "./utils";
+} from "../utils";
 
 describe("isUpperAlpha", () => {
   it("should return true for uppercase letters", () => {
