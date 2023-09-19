@@ -10,13 +10,13 @@ export const TYPES = [
   "camel",
   "pascal",
   "snake",
-  "screamingKebab",
+  "screaming-kebab",
 ] as const;
 
 export type Types = (typeof TYPES)[number];
 
 export interface ConvConv {
-  to(type: Types): ConvConv;
+  toType(type: Types): ConvConv;
 
   toKebab(): ConvConv;
   toCamel(): ConvConv;
@@ -47,8 +47,9 @@ ConvConv.prototype.toString = function (this: This) {
   return this.name;
 };
 
-ConvConv.prototype.to = function (this: This, type: Types): ConvConv {
-  const functionName = "to" + type[0].toUpperCase() + type.slice(1);
+ConvConv.prototype.toType = function (this: This, type: Types): ConvConv {
+  const functionName = "to" + Pascal.fromKebab(type);
+
   return this[functionName]();
 };
 
@@ -65,7 +66,7 @@ for (const key of Object.keys(Adapters) as (keyof typeof Adapters)[]) {
 }
 
 export function fromType(type: Types, name: string): ConvConv {
-  const functionName = "from" + type[0].toUpperCase() + type.slice(1);
+  const functionName = "from" + Pascal.fromKebab(type);
 
   return exports[functionName](name);
 }
@@ -103,7 +104,7 @@ export function fromPascal(name: string): ConvConv {
 }
 
 export function fromScreamingKebab(name: string): ConvConv {
-  assertType("screamingKebab", name);
+  assertType("screaming-kebab", name);
   return new ConvConv(name, ScreamingKebab);
 }
 
@@ -114,7 +115,7 @@ export const isPascal = Pascal.isPascal;
 export const isScreamingKebab = ScreamingKebab.isScreamingKebab;
 
 export function isType(type: Types, name: string): boolean {
-  const functionName = "is" + type[0].toUpperCase() + type.slice(1);
+  const functionName = "is" + Pascal.fromKebab(type);
 
   return exports[functionName](name);
 }
