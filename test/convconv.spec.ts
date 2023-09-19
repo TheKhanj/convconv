@@ -9,20 +9,20 @@ function cartesian(...a: any[][]): any[] {
 }
 
 describe("convconv", () => {
-  const allTests: { [key: string]: string }[] = [
+  const allTests: { [key in Convention]: string }[] = [
     {
       kebab: "my-random-sentence-123",
       snake: "my_random_sentence_123",
       camel: "myRandomSentence123",
       pascal: "MyRandomSentence123",
-      screamingKebab: "MY_RANDOM_SENTENCE_123",
+      "screaming-kebab": "MY_RANDOM_SENTENCE_123",
     },
     {
       kebab: "my-random-sentence-123-and-something-after",
       snake: "my_random_sentence_123_and_something_after",
       camel: "myRandomSentence123AndSomethingAfter",
       pascal: "MyRandomSentence123AndSomethingAfter",
-      screamingKebab: "MY_RANDOM_SENTENCE_123_AND_SOMETHING_AFTER",
+      "screaming-kebab": "MY_RANDOM_SENTENCE_123_AND_SOMETHING_AFTER",
     },
   ];
 
