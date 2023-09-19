@@ -25,13 +25,13 @@ convconv
   .autoFrom('your-input-in-one-of-available-naming-conventions')
   .toPascal();
 
-// throws ConventionViolationError
+// throws ConventionNotFoundError
 convconv.autoFrom('Random_sTring-with_nOConvention');
 
 // returns 'kebab'
 convconv.getConvention('some-kebab-case-string');
 
-// throws ConventionViolationError
+// throws ConventionNotFoundError
 convconv.getConvention('Random_sTring-with_nOConvention');
 
 // returns true
