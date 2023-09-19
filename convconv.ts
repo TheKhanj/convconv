@@ -5,7 +5,15 @@ import { Pascal } from "./pascal";
 import { Adapter } from "./adapter";
 import { ScreamingKebab } from "./screaming-kebab";
 
-export type Types = "kebab" | "camel" | "pascal" | "snake" | "screamingKebab";
+export const TYPES = [
+  "kebab",
+  "camel",
+  "pascal",
+  "snake",
+  "screamingKebab",
+] as const;
+
+export type Types = (typeof TYPES)[number];
 
 export interface ConvConv {
   to(type: Types): ConvConv;
