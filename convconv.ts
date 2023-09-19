@@ -16,15 +16,13 @@ export const TYPES = [
 export type Types = (typeof TYPES)[number];
 
 export interface ConvConv {
-  toType(type: Types): ConvConv;
+  toType(type: Types): string;
 
-  toKebab(): ConvConv;
-  toCamel(): ConvConv;
-  toSnake(): ConvConv;
-  toPascal(): ConvConv;
-  toScreamingKebab(): ConvConv;
-
-  toString(): string;
+  toKebab(): string;
+  toCamel(): string;
+  toSnake(): string;
+  toPascal(): string;
+  toScreamingKebab(): string;
 }
 
 type Obj = { name: string; adapter: Adapter };
@@ -43,10 +41,6 @@ const Adapters = {
   screamingKebab: ScreamingKebab,
 };
 
-ConvConv.prototype.toString = function (this: This) {
-  return this.name;
-};
-
 ConvConv.prototype.toType = function (this: This, type: Types): ConvConv {
   const functionName = "to" + Pascal.fromKebab(type);
 
@@ -57,11 +51,8 @@ for (const key of Object.keys(Adapters) as (keyof typeof Adapters)[]) {
   const adapter: Adapter = Adapters[key];
   const methodName = "to" + key[0].toUpperCase() + key.slice(1);
 
-  ConvConv.prototype[methodName] = function (this: This): ConvConv {
-    this.name = adapter.fromKebab(this.adapter.toKebab(this.name));
-    this.adapter = adapter;
-
-    return this;
+  ConvConv.prototype[methodName] = function (this: This): string {
+    return adapter.fromKebab(this.adapter.toKebab(this.name));
   };
 }
 

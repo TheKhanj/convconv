@@ -14,11 +14,11 @@ import convconv from 'convconv';
 
 // converts camelCase to kebab-case
 // camelCase -> camel-case
-convconv.fromCamel('camelCase').toKebab().toString();
+convconv.fromCamel('camelCase').toKebab();
 
 // converts kebab-case to snake_case
 // kebab-case -> kebak_case
-convconv.fromType('kebab', 'kebab-case').toSnake().toString();
+convconv.fromType('kebab', 'kebab-case').toSnake();
 
 // returns true
 convconv.isPascal('PascalCase');
