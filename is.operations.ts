@@ -7,9 +7,10 @@ import { ScreamingKebab } from "./adapters/screaming.kebab";
 
 export const IS_OPERATIONS: Is = {
   isConvention(this: Is, convention: Convention, name: string): boolean {
-    const functionName = "is" + Pascal.fromKebab(convention);
+    type MethodName = Exclude<keyof Is, "isConvention">;
+    const methodName = "is" + Pascal.fromKebab(convention) as MethodName;
 
-    return this[functionName](name);
+    return this[methodName](name);
   },
   isKebab: Kebab.isKebab,
   isCamel: Camel.isCamel,
