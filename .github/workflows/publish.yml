@@ -1,0 +1,45 @@
+name: Publish NPM Package
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Get package.json version
+        id: get-version
+        run: |
+          echo "version=$(node -p "require('./package.json').version")" >> $GITHUB_OUTPUT
+
+      - name: Get latest npm version
+        id: get-npm-version
+        run: |
+          echo "latest=$(npm show convconv version)" >> $GITHUB_OUTPUT
+
+      - name: Compare versions
+        id: compare-versions
+        run: |
+          echo "should-publish=$([[ $VERSION > $LATEST ]] && echo -n 'true' || echo -n 'false')" >> $GITHUB_OUTPUT
+
+      - name: Publish to npm
+        if: steps.compare-versions.outputs.should-publish == 'true'
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
+        run: |
+          echo "//registry.npmjs.org/:_authToken=\${NODE_AUTH_TOKEN}" > ~/.npmrc
+          npm publish --access public
