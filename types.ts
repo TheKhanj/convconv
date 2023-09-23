@@ -13,6 +13,7 @@ export interface ConvConv {
   toSnake(): string;
   toPascal(): string;
   toScreamingKebab(): string;
+  toScreamingSnake(): string;
 }
 
 export interface From {
@@ -23,6 +24,7 @@ export interface From {
   fromSnake(name: string): ConvConv;
   fromPascal(name: string): ConvConv;
   fromScreamingKebab(name: string): ConvConv;
+  fromScreamingSnake(name: string): ConvConv;
 }
 
 export interface Is {
@@ -32,4 +34,5 @@ export interface Is {
   isSnake(name: string): boolean;
   isPascal(name: string): boolean;
   isScreamingKebab(name: string): boolean;
+  isScreamingSnake(name: string): boolean;
 }

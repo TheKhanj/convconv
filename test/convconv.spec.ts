@@ -15,14 +15,16 @@ describe("convconv", () => {
       snake: "my_random_sentence_123",
       camel: "myRandomSentence123",
       pascal: "MyRandomSentence123",
-      "screaming-kebab": "MY_RANDOM_SENTENCE_123",
+      "screaming-kebab": "MY-RANDOM-SENTENCE-123",
+      "screaming-snake": "MY_RANDOM_SENTENCE_123",
     },
     {
       kebab: "my-random-sentence-123-and-something-after",
       snake: "my_random_sentence_123_and_something_after",
       camel: "myRandomSentence123AndSomethingAfter",
       pascal: "MyRandomSentence123AndSomethingAfter",
-      "screaming-kebab": "MY_RANDOM_SENTENCE_123_AND_SOMETHING_AFTER",
+      "screaming-kebab": "MY-RANDOM-SENTENCE-123-AND-SOMETHING-AFTER",
+      "screaming-snake": "MY_RANDOM_SENTENCE_123_AND_SOMETHING_AFTER",
     },
   ];
 
@@ -38,10 +40,10 @@ describe("convconv", () => {
         expect(
           convconv
             .fromConvention(fromConvention, from)
-            .toConvention(toConvention)
+            .toConvention(toConvention),
         ).toBe(to);
-      }
-    )
+      },
+    ),
   );
 
   allTests.forEach((tests) =>
@@ -52,8 +54,8 @@ describe("convconv", () => {
         const to = tests[toConvention];
 
         expect(convconv.autoFrom(from).toConvention(toConvention)).toBe(to);
-      }
-    )
+      },
+    ),
   );
 
   test.each([
@@ -65,8 +67,8 @@ describe("convconv", () => {
     "getConvention should throw ConventionNotFoundError for invalid inputs",
     (from: string) => {
       expect(() => convconv.getConvention(from)).toThrow(
-        convconv.ConventionNotFoundError
+        convconv.ConventionNotFoundError,
       );
-    }
+    },
   );
 });

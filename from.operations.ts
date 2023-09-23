@@ -38,4 +38,7 @@ export const FROM_OPERATIONS: From = {
   fromScreamingKebab(this: From, name: string): ConvConv {
     return this.fromConvention("screaming-kebab", name);
   },
+  fromScreamingSnake(this: From, name: string): ConvConv {
+    return this.fromConvention("screaming-snake", name);
+  },
 };

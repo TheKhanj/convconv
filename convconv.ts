@@ -5,7 +5,7 @@ import { ConvConv, Convention } from "./types";
 export class ConvConvImpl implements ConvConv {
   public constructor(
     private readonly name: string,
-    private readonly adapter: Adapter
+    private readonly adapter: Adapter,
   ) {}
   public toConvention(convention: Convention): string {
     const newAdapter = Adapters[Camel.fromKebab(convention)];
@@ -25,5 +25,8 @@ export class ConvConvImpl implements ConvConv {
   }
   public toScreamingKebab(): string {
     return this.toConvention("screaming-kebab");
+  }
+  public toScreamingSnake(): string {
+    return this.toConvention("screaming-snake");
   }
 }

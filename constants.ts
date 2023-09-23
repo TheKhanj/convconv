@@ -4,4 +4,5 @@ export const CONVENTIONS = [
   "pascal",
   "snake",
   "screaming-kebab",
+  "screaming-snake",
 ] as const;
