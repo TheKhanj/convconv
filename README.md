@@ -1,6 +1,6 @@
 # ConvConv
 
-Super simple, zero dependency naming **_conv_**ention **_conv_**erter and validator library.
+Super simple, zero dependency naming ***conv***ention ***conv***erter and validator library.
 
 # Examples
 
