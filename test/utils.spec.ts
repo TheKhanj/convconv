@@ -4,6 +4,8 @@ import {
   isAlpha,
   isNum,
   isAlphaNum,
+  isLowerAlphaNum,
+  isUpperAlphaNum,
 } from "../utils";
 
 describe("isUpperAlpha", () => {
@@ -77,5 +79,41 @@ describe("isAlphaNum", () => {
     expect(isAlphaNum("#")).toBe(false);
     expect(isAlphaNum(" ")).toBe(false);
     expect(isAlphaNum("TeSt 123")).toBe(false);
+  });
+});
+
+describe("isLowerAlphaNum", () => {
+  it("should return true for alphanumeric characters", () => {
+    expect(isLowerAlphaNum("A")).toBe(false);
+    expect(isLowerAlphaNum("z")).toBe(true);
+    expect(isLowerAlphaNum("0")).toBe(true);
+    expect(isLowerAlphaNum("9")).toBe(true);
+    expect(isLowerAlphaNum("")).toBe(true);
+    expect(isLowerAlphaNum("test123")).toBe(true);
+    expect(isLowerAlphaNum("TEST123")).toBe(false);
+  });
+
+  it("should return false for non-alphanumeric characters", () => {
+    expect(isLowerAlphaNum("#")).toBe(false);
+    expect(isLowerAlphaNum(" ")).toBe(false);
+    expect(isLowerAlphaNum("test 123")).toBe(false);
+  });
+});
+
+describe("isUpperAlphaNum", () => {
+  it("should return true for alphanumeric characters", () => {
+    expect(isUpperAlphaNum("A")).toBe(true);
+    expect(isUpperAlphaNum("z")).toBe(false);
+    expect(isUpperAlphaNum("0")).toBe(true);
+    expect(isUpperAlphaNum("9")).toBe(true);
+    expect(isUpperAlphaNum("")).toBe(true);
+    expect(isUpperAlphaNum("TEST123")).toBe(true);
+    expect(isUpperAlphaNum("test123")).toBe(false);
+  });
+
+  it("should return false for non-alphanumeric characters", () => {
+    expect(isUpperAlphaNum("#")).toBe(false);
+    expect(isUpperAlphaNum(" ")).toBe(false);
+    expect(isUpperAlphaNum("TEST 123")).toBe(false);
   });
 });
