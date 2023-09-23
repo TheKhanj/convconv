@@ -13,7 +13,7 @@ import convconv from "convconv";
 //   PascalCase
 //   snake_case
 //   SCREAMING-KEBAB-CASE
-//   SCREAMING_KEBAB_CASE
+//   SCREAMING_SNAKE_CASE
 
 // converts camelCase to kebab-case
 // camelCase -> camel-case
