@@ -65,22 +65,8 @@ type IsAll<
   : true;
 
 type IsLowerCase<S extends string> = IsAll<LowerChar, S>;
-
 type IsUpperCase<S extends string> = IsAll<UpperChar, S>;
 type IsNumbers<S extends string> = IsAll<Num, S>;
-
-type IsFirstUpperOthersLower<S extends string> =
-  S extends `${UpperChar}${infer R}` ? IsLowerCase<R> : false;
-
-type GetNext<
-  T,
-  S extends string,
-  R extends string = "",
-> = S extends `${infer A}${infer B}`
-  ? A extends S
-    ? [R, S]
-    : GetNext<B, `${R}${A}`>
-  : [R, S];
 
 type Match<S extends string, G extends string[]> = G extends [
   infer A,
@@ -92,8 +78,6 @@ type Match<S extends string, G extends string[]> = G extends [
     ? Match<S, B>
     : never
   : never;
-
-type khanj = Match<"e", ["b", "a"]>;
 
 type ReverseArr<A extends string[]> = A extends [infer A, ...infer B]
   ? B extends string[]
@@ -123,45 +107,61 @@ type Tokenize<
 
 type Tokens = ["-", "_", UpperChar, LowerChar, Num];
 
-type ElseFalse<T, R, K> = T extends R ? K : false;
-type ElseNever<T, R, K> = T extends R ? K : never;
+type ElseFalse<T, K> = T extends true ? K : false;
 
-type Extends<T, U> = T extends U ? T : never;
+type Or<T extends boolean[]> = T extends [infer A, ...infer O]
+  ? A extends true
+    ? true
+    : O extends boolean[]
+    ? Or<O>
+    : never
+  : false;
 
-type IsPascalTokens<T extends string[]> = T extends [infer Token1, ...infer O1]
-  ? Token1 extends string
-    ? IsUpperCase<Token1> extends true
-      ? O1 extends string[]
-        ? O1 extends [infer Token2, ...infer O2]
-          ? Token2 extends string
-            ? IsUpperCase<Token2> extends true
-              ? IsPascalTokens<O1>
-              : IsLowerCase<Token2> extends true
-              ? O2 extends string[]
-                ? O2 extends [infer Token3, ...infer O3]
-                  ? Token3 extends string
-                    ? IsUpperCase<Token3> extends true
-                      ? IsPascalTokens<O2>
-                      : IsNumbers<Token3> extends true
-                      ? O3 extends string[]
-                        ? IsPascalTokens<O3>
-                        : never
-                      : false
-                    : never
-                  : true
-                : never
-              : IsNumbers<Token2> extends true
-              ? O2 extends string[]
-                ? IsPascalTokens<O2>
-                : never
-              : false
-            : never
-          : true
+type IsPascalTokens<T extends string[], N extends number = 0> = T extends [
+  infer FirstToken,
+  ...infer OtherTokens,
+]
+  ? FirstToken extends string
+    ? OtherTokens extends string[]
+      ? N extends 0
+        ? ElseFalse<
+            IsUpperCase<FirstToken>,
+            Or<[IsPascalTokens<OtherTokens, 1>, IsPascalTokens<OtherTokens, 2>]>
+          >
+        : N extends 1
+        ? ElseFalse<
+            IsLowerCase<FirstToken>,
+            Or<[IsPascalTokens<OtherTokens, 2>, IsPascalTokens<OtherTokens, 0>]>
+          >
+        : N extends 2
+        ? ElseFalse<IsNumbers<FirstToken>, IsPascalTokens<OtherTokens, 0>>
         : never
-      : false
+      : never
     : never
   : true;
 
-type IsPascal<T extends string> = IsPascalTokens<Tokenize<T, Tokens>>;
+type IsCamelTokens<T extends string[], N extends number = 0> = T extends [
+  infer FirstToken,
+  ...infer OtherTokens,
+]
+  ? FirstToken extends string
+    ? OtherTokens extends string[]
+      ? N extends 0
+        ? ElseFalse<
+            IsLowerCase<FirstToken>,
+            Or<[IsCamelTokens<OtherTokens, 1>, IsCamelTokens<OtherTokens, 2>]>
+          >
+        : N extends 1
+        ? ElseFalse<IsNumbers<FirstToken>, IsCamelTokens<OtherTokens, 2>>
+        : N extends 2
+        ? ElseFalse<
+            IsUpperCase<FirstToken>,
+            Or<[IsCamelTokens<OtherTokens, 0>, IsCamelTokens<OtherTokens, 1>]>
+          >
+        : never
+      : never
+    : never
+  : true;
 
-type test = IsPascal<"123">;
+type IsPascalCase<T extends string> = IsPascalTokens<Tokenize<T, Tokens>>;
+type IsCamelCase<T extends string> = IsCamelTokens<Tokenize<T, Tokens>>;
